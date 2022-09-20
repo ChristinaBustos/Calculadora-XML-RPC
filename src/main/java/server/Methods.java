@@ -1,46 +1,11 @@
 package server;
 
 import client.ClientRPC;
+import modal.BeanCalculadora;
 import modal.DaoCalculadora;
 
 public class Methods {
-   double firstNumber;
-    double SecondNumber;
-    String typeOperation;
-    String response;
-
-
-    public double getFirstNumber() {
-        return firstNumber;
-    }
-
-    public void setFirstNumber(double firstNumber) {
-        this.firstNumber = firstNumber;
-    }
-
-    public double getSecondNumber() {
-        return SecondNumber;
-    }
-
-    public void setSecondNumber(double secondNumber) {
-        SecondNumber = secondNumber;
-    }
-
-    public String getTypeOperation() {
-        return typeOperation;
-    }
-
-    public void setTypeOperation(String typeOperation) {
-        this.typeOperation = typeOperation;
-    }
-
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
+    DaoCalculadora daoCalculadora = new DaoCalculadora();
 
     public String suma(double firstNumber, double SecondNumber){
         String suma;
@@ -78,15 +43,8 @@ public class Methods {
         return raiz;
     }
 
-    public boolean saveOperation(Methods operation){
-        DaoCalculadora daoCalculadora = new DaoCalculadora();
-
-        if(daoCalculadora.saveOperation(operation)){
-            System.out.println("Se guardaron los datos con exito!");
-            return true;
-        }else{
-            System.out.println("Error al guardar los datos");
-            return false;
-        }
+    public void saveOperation(String typeOperation,double firstNumber,double SecondNumber,String response){
+        daoCalculadora.saveOperation(typeOperation,firstNumber,SecondNumber, response);
     }
+
 }

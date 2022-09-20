@@ -15,19 +15,22 @@ public class DaoCalculadora {
 
     private final String INSERT_OPERATION = "INSERT INTO operations(type,first_number,second_number,result)values (?,?,?,?)";
 
-    public boolean saveOperation(Methods operations){
+    public boolean saveOperation(String typeOperation, double firstNumber, double secondNumber, String response){
         try{
             conn = new MySQLConnection().getConnection();
             String query =INSERT_OPERATION;
             pstm = conn.prepareStatement(query);
-            pstm.setDouble(1,operations.getFirstNumber());
-            pstm.setDouble(2,operations.getSecondNumber());
-            pstm.setString(3,operations.getTypeOperation());
-            pstm.setString(4,operations.getResponse());
+            pstm.setString(1,typeOperation);
+            pstm.setDouble(2,firstNumber);
+            pstm.setDouble(3,secondNumber);
+            pstm.setString(4,response);
+
             return pstm.executeUpdate()==1;
         }catch (SQLException e){
+
             Logger.getLogger(DaoCalculadora.class.getName()).log(Level.SEVERE, "Error saveOperation->"+e);
             return false;
+
         }finally {
             closeConnection();
         }
@@ -51,5 +54,6 @@ public class DaoCalculadora {
 
         }
     }
+
 
 }

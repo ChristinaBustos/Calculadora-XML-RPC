@@ -1,5 +1,7 @@
 package client;
 
+import modal.BeanCalculadora;
+import modal.DaoCalculadora;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -16,7 +18,12 @@ public class ClientRPC {
         config.setServerURL(new URL("http://localhost:1200"));
         XmlRpcClient client = new XmlRpcClient();
         client.setConfig(config);
-        String option = "",firstNumber="",SecondNumber="",typeOperation="",response="",result="";
+        String option = "";
+        String firstNumber="";
+        String SecondNumber="";
+        String typeOperation="";
+        String response="";
+        String result="";
         do{
             System.out.println("1. Suma");
             System.out.println("2. Resta");
@@ -29,7 +36,8 @@ public class ClientRPC {
             System.out.println("Seleccione una opción...");
             option = sc.next();
 
-            Methods operation = new Methods();
+//            Methods  = new Methods();
+            BeanCalculadora operation = new BeanCalculadora();
             if (isNumber(option)){
                 switch (Integer.parseInt(option)){
                     case 1:
@@ -172,12 +180,12 @@ public class ClientRPC {
                     default:
                         System.out.println("NO existe esa opcion");
                 }
-                operation.setTypeOperation(typeOperation);
-                operation.setFirstNumber(Double.parseDouble(firstNumber));
-                operation.setSecondNumber(Double.parseDouble(SecondNumber));
-                operation.setResponse(response);
-                result = String.valueOf(operation.saveOperation(operation));
-                System.out.println(result);
+//                operation.setTypeOperation(typeOperation);
+//                operation.setFirstNumber(Double.parseDouble(firstNumber));
+//                operation.setSecondNumber(Double.parseDouble(SecondNumber));
+//                operation.setResponse(response);
+                Methods methods = new Methods();
+                methods.saveOperation(typeOperation,Double.parseDouble(firstNumber),Double.parseDouble(SecondNumber),response);
             }else {
                 System.out.println("La opcion es incorrecta. Intente nuevamente...");
             }
